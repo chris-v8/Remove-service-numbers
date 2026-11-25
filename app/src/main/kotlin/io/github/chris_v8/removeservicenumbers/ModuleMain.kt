@@ -26,7 +26,7 @@ class ModuleMain : XposedModule() {
         try {
             hookInsertSimContacts(param.classLoader)
         } catch (t: Throwable) {
-            log(Log.ERROR, TAG, "Could not install the hook; service numbers stay visible", t)
+            log(Log.ERROR, LOG_TAG, "Could not install the hook; service numbers stay visible", t)
         }
     }
 
@@ -44,20 +44,22 @@ class ModuleMain : XposedModule() {
                 val accountType = accountTypeOf(getAccountType, chain.getArg(0))
                 if (accountType in SERVICE_NUMBER_ACCOUNT_TYPES) {
                     val count = (chain.getArg(1) as? Array<*>)?.size ?: 0
-                    log(Log.INFO, TAG, "Skipped $count service number(s) for $accountType")
+                    log(Log.INFO, LOG_TAG, "Skipped $count service number(s) for $accountType")
                     null // insertSimContacts returns nothing
                 } else {
                     chain.proceed()
                 }
             }
-        log(Log.INFO, TAG, "Hooked ${insert.declaringClass.name}.${insert.name}")
+        log(Log.INFO, LOG_TAG, "Hooked ${insert.declaringClass.name}.${insert.name}")
     }
 
     private fun accountTypeOf(getAccountType: Method, account: Any?): String? =
         account?.let { getAccountType.invoke(it) as? String }
 
     private companion object {
-        const val TAG = "RemoveServiceNumbers"
+        // No tag of our own: Vector then logs under its own tag with the module name in front,
+        // and only its own tags are saved to the module log shown in the manager.
+        val LOG_TAG: String? = null
         const val CONTACTS_PROVIDER = "com.android.providers.contacts"
         const val SIM_OVERLAY_MANAGER = "com.customize.manager.AbstractSimOverlayManager"
 
