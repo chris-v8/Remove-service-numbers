@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- No activities: the module has no settings. The LSPosed/Vector manager shows
+         android:label as the module name and android:description as its description. -->
+    <application
+        android:allowBackup="false"
+        android:description="@string/module_description"
+        android:hasCode="true"
+        android:label="@string/app_name" />
+
+</manifest>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<resources>
+    <string name="app_name">Remove service numbers</string>
+    <string name="module_description">Stops ColorOS from copying the SIM card\'s read-only operator service numbers into your contacts. Scope: Contacts Storage (com.android.providers.contacts). Takes effect after a reboot.</string>
+</resources>
